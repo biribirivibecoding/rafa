@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm --version)",
+      "mcp__d2df9363-3d05-414d-8661-8d5544f3ad16__list_projects",
+      "mcp__d2df9363-3d05-414d-8661-8d5544f3ad16__list_organizations",
+      "mcp__d2df9363-3d05-414d-8661-8d5544f3ad16__get_cost",
+      "Bash(npx --yes create-next-app@latest . --typescript --tailwind --app --no-src-dir --import-alias \"@/*\" --use-npm --eslint --no-turbopack --yes)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(curl -s -o /dev/null -w \"status=%{http_code} -> %{redirect_url}\\\\n\" http://localhost:3000/admin/links)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:3000/admin/login)",
+      "Bash(curl -s -o /dev/null -w \"status=%{http_code} -> %{redirect_url}\\\\n\" -H \"Host: admin.localhost\" http://localhost:3000/)",
+      "Bash(curl -s -X POST http://localhost:3000/api/auth/login -H \"Content-Type: application/json\" -d '{\"password\":\"nope\"}' -w \" [%{http_code}]\\\\n\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" -b /tmp/cookies.txt http://localhost:3000/admin/links)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" -b /tmp/cookies.txt http://localhost:3000/admin/design)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" -b /tmp/cookies.txt http://localhost:3000/admin/insights)",
+      "Bash(curl -s -o /dev/null -w \"status=%{http_code} -> %{redirect_url}\\\\n\" -b /tmp/cookies.txt -H \"Host: admin.localhost\" http://localhost:3000/)",
+      "Bash(curl -s -b /tmp/cookies.txt http://localhost:3000/admin/design)",
+      "Bash(curl -s -b /tmp/cookies.txt http://localhost:3000/admin/links)",
+      "Bash(rm -f /tmp/c.txt)",
+      "Bash(curl -s -X POST http://localhost:3000/api/auth/login -H \"Content-Type: application/json\" -d '{\"password\":\"admin123\"}' -c /tmp/c.txt -o /dev/null)",
+      "Read(//tmp/**)",
+      "Bash(awk '{print $6, substr\\($7,1,20\\)\"...\"}')",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" -b /tmp/c.txt http://localhost:3000/admin/links)",
+      "Bash(curl -s -o /dev/null -w \"status=%{http_code} url=%{redirect_url}\\\\n\" -b /tmp/c.txt -H \"Host: admin.localhost\" http://localhost:3000/)",
+      "Bash(curl -s -o /dev/null -w \"status=%{http_code} url=%{redirect_url}\\\\n\" -b /tmp/c.txt -H \"Host: admin.localhost\" http://localhost:3000/admin/links)",
+      "Bash(rm -f /tmp/ca.txt)",
+      "Bash(curl -s -X POST -H \"Host: admin.localhost\" http://localhost:3000/api/auth/login -H \"Content-Type: application/json\" -d '{\"password\":\"admin123\"}' -c /tmp/ca.txt -w \" [%{http_code}]\\\\n\" -o /dev/null)",
+      "Bash(curl -s -o /dev/null -w \"status=%{http_code} url=%{redirect_url}\\\\n\" -b /tmp/ca.txt -H \"Host: admin.localhost\" http://localhost:3000/)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" -b /tmp/ca.txt -H \"Host: admin.localhost\" http://localhost:3000/admin/links)",
+      "Bash(curl -s -X POST http://localhost:3000/api/no)",
+      "Bash(node -e ' *)",
+      "Bash(git init *)",
+      "Bash(git add *)"
+    ]
+  }
+}
