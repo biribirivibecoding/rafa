@@ -18,8 +18,11 @@ create table if not exists public.profiles (
   footer              text not null default '',
 
   -- fundo
+  bg_mode             text not null default 'gradient',   -- 'gradient' | 'image'
   bg_color            text not null default '#192815',
   bg_gradient_end     text not null default '#192815',
+  bg_image_url        text,
+  bg_overlay          int  not null default 30,           -- escurecimento sobre a imagem (0-100)
   text_color          text not null default '#fffae3',
 
   -- botoes
@@ -38,6 +41,11 @@ create table if not exists public.profiles (
   created_at          timestamptz not null default now(),
   updated_at          timestamptz not null default now()
 );
+
+-- Migracao: garante as colunas novas em bancos ja existentes
+alter table public.profiles add column if not exists bg_mode      text not null default 'gradient';
+alter table public.profiles add column if not exists bg_image_url text;
+alter table public.profiles add column if not exists bg_overlay   int  not null default 30;
 
 -- ------------------------------------------------------------
 --  Tabela: links
@@ -86,6 +94,19 @@ begin
   insert into public.click_events (link_id) values (p_link_id);
 end;
 $$;
+
+-- ------------------------------------------------------------
+--  Storage: bucket publico p/ uploads (logo, fundo, miniaturas)
+-- ------------------------------------------------------------
+-- O upload acontece via service_role nas rotas de API; o publico so le.
+insert into storage.buckets (id, name, public)
+values ('media', 'media', true)
+on conflict (id) do update set public = true;
+
+drop policy if exists "media_public_read" on storage.objects;
+create policy "media_public_read"
+  on storage.objects for select
+  using (bucket_id = 'media');
 
 -- ------------------------------------------------------------
 --  RLS

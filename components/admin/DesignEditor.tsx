@@ -5,6 +5,7 @@ import { Check } from "lucide-react";
 import type { Profile, LinkItem, SocialLinks } from "@/lib/types";
 import { FONTS, SOCIAL_KEYS } from "@/lib/types";
 import { LivePreview } from "./LivePreview";
+import { ImageUpload } from "./ImageUpload";
 
 function ColorField({
   label,
@@ -111,17 +112,12 @@ export function DesignEditor({
                 onChange={(e) => set("bio", e.target.value)}
               />
             </label>
-            <label className="block">
-              <span className="mb-1.5 block text-sm font-medium text-zinc-700">
-                URL do logo
-              </span>
-              <input
-                className="input"
-                placeholder="https://.../logo.png"
-                value={profile.logo_url ?? ""}
-                onChange={(e) => set("logo_url", e.target.value || null)}
-              />
-            </label>
+            <ImageUpload
+              label="Logo / Foto"
+              shape="circle"
+              value={profile.logo_url}
+              onChange={(url) => set("logo_url", url)}
+            />
             <label className="block">
               <span className="mb-1.5 block text-sm font-medium text-zinc-700">
                 Rodape (opcional)
@@ -134,23 +130,74 @@ export function DesignEditor({
             </label>
           </section>
 
-          {/* Cores do fundo */}
+          {/* Fundo */}
           <section className="space-y-3 rounded-2xl border border-zinc-200 bg-white p-5">
             <h2 className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
-              Cores do fundo
+              Fundo
             </h2>
-            <div className="grid grid-cols-2 gap-3">
-              <ColorField
-                label="Cor principal"
-                value={profile.bg_color}
-                onChange={(v) => set("bg_color", v)}
-              />
-              <ColorField
-                label="Gradiente (fim)"
-                value={profile.bg_gradient_end}
-                onChange={(v) => set("bg_gradient_end", v)}
-              />
+            <div className="flex gap-2">
+              <button
+                onClick={() => set("bg_mode", "gradient")}
+                className={`flex-1 rounded-xl border py-3 text-sm font-medium ${
+                  profile.bg_mode !== "image"
+                    ? "border-zinc-900 bg-zinc-900 text-white"
+                    : "border-zinc-200 text-zinc-700 hover:bg-zinc-50"
+                }`}
+              >
+                Cor / Gradiente
+              </button>
+              <button
+                onClick={() => set("bg_mode", "image")}
+                className={`flex-1 rounded-xl border py-3 text-sm font-medium ${
+                  profile.bg_mode === "image"
+                    ? "border-zinc-900 bg-zinc-900 text-white"
+                    : "border-zinc-200 text-zinc-700 hover:bg-zinc-50"
+                }`}
+              >
+                Imagem
+              </button>
             </div>
+
+            {profile.bg_mode === "image" ? (
+              <>
+                <ImageUpload
+                  label="Imagem de fundo"
+                  shape="wide"
+                  value={profile.bg_image_url}
+                  onChange={(url) => set("bg_image_url", url)}
+                />
+                <label className="block">
+                  <span className="mb-1.5 block text-sm font-medium text-zinc-700">
+                    Escurecer fundo: {profile.bg_overlay}%
+                  </span>
+                  <input
+                    type="range"
+                    min={0}
+                    max={90}
+                    value={profile.bg_overlay}
+                    onChange={(e) => set("bg_overlay", Number(e.target.value))}
+                    className="w-full"
+                  />
+                  <span className="mt-1 block text-xs text-zinc-500">
+                    Deixa o texto mais legivel sobre a imagem.
+                  </span>
+                </label>
+              </>
+            ) : (
+              <div className="grid grid-cols-2 gap-3">
+                <ColorField
+                  label="Cor principal"
+                  value={profile.bg_color}
+                  onChange={(v) => set("bg_color", v)}
+                />
+                <ColorField
+                  label="Gradiente (fim)"
+                  value={profile.bg_gradient_end}
+                  onChange={(v) => set("bg_gradient_end", v)}
+                />
+              </div>
+            )}
+
             <ColorField
               label="Cor do texto"
               value={profile.text_color}

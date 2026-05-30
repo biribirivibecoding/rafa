@@ -1,5 +1,6 @@
 export type ButtonStyle = "outline" | "fill";
 export type SocialPosition = "top" | "bottom";
+export type BgMode = "gradient" | "image";
 
 export type SocialLinks = {
   instagram?: string;
@@ -18,8 +19,11 @@ export type Profile = {
   bio: string;
   logo_url: string | null;
   footer: string;
+  bg_mode: BgMode;
   bg_color: string;
   bg_gradient_end: string;
+  bg_image_url: string | null;
+  bg_overlay: number;
   text_color: string;
   button_style: ButtonStyle;
   button_border_color: string;

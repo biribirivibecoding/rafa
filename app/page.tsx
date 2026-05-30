@@ -1,6 +1,7 @@
 import { getProfile, getLinks } from "@/lib/data";
 import { LinkButton } from "@/components/LinkButton";
 import { SocialIcons } from "@/components/SocialIcons";
+import { backgroundStyle } from "@/lib/appearance";
 
 export const dynamic = "force-dynamic";
 
@@ -22,11 +23,6 @@ export default async function PublicPage() {
 
   const links = await getLinks(profile.id, { activeOnly: true, admin: true });
 
-  const background =
-    profile.bg_color === profile.bg_gradient_end
-      ? profile.bg_color
-      : `linear-gradient(160deg, ${profile.bg_color}, ${profile.bg_gradient_end})`;
-
   const social = (
     <SocialIcons links={profile.social_links} color={profile.text_color} />
   );
@@ -35,7 +31,7 @@ export default async function PublicPage() {
     <main
       className="flex min-h-screen flex-col items-center px-5 py-12"
       style={{
-        background,
+        ...backgroundStyle(profile),
         color: profile.text_color,
         fontFamily: `'${profile.font}', system-ui, sans-serif`,
       }}

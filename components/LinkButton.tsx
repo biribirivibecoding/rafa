@@ -36,8 +36,16 @@ export function LinkButton({
       rel="noopener noreferrer"
       onClick={handleClick}
       style={style}
-      className="block w-full px-5 py-4 text-center transition hover:scale-[1.02] active:scale-[0.99]"
+      className="relative block w-full px-5 py-4 text-center transition hover:scale-[1.02] active:scale-[0.99]"
     >
+      {link.thumbnail_url ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={link.thumbnail_url}
+          alt=""
+          className="absolute left-3 top-1/2 h-10 w-10 -translate-y-1/2 rounded-lg object-cover"
+        />
+      ) : null}
       <span className="block text-base font-semibold leading-tight">{link.title}</span>
       {link.subtitle ? (
         <span className="mt-0.5 block text-xs opacity-80">{link.subtitle}</span>
