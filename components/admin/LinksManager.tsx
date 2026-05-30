@@ -12,6 +12,7 @@ import {
   Save,
 } from "lucide-react";
 import type { LinkItem } from "@/lib/types";
+import { ImageUpload } from "./ImageUpload";
 
 export function LinksManager({
   initialLinks,
@@ -41,6 +42,15 @@ export function LinksManager({
       }),
     });
     setSavingId(null);
+  }
+
+  async function setThumbnail(id: string, url: string | null) {
+    patchLocal(id, { thumbnail_url: url });
+    await fetch(`/api/links/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ thumbnail_url: url }),
+    });
   }
 
   async function toggleActive(link: LinkItem) {
@@ -134,6 +144,12 @@ export function LinksManager({
                     value={link.subtitle ?? ""}
                     placeholder="Subtitulo (opcional)"
                     onChange={(e) => patchLocal(link.id, { subtitle: e.target.value })}
+                  />
+                  <ImageUpload
+                    label="Miniatura (opcional)"
+                    shape="square"
+                    value={link.thumbnail_url}
+                    onChange={(url) => setThumbnail(link.id, url)}
                   />
                   <div className="flex items-center gap-3 pt-1">
                     <button
