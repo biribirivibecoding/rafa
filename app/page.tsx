@@ -42,18 +42,11 @@ export default async function PublicPage() {
           <img
             src={profile.logo_url}
             alt={profile.name}
-            className="h-24 w-24 rounded-full object-cover shadow-lg"
+            className="mb-4 h-24 w-24 rounded-full object-cover shadow-lg"
           />
-        ) : (
-          <div
-            className="flex h-24 w-24 items-center justify-center rounded-full text-3xl font-bold shadow-lg"
-            style={{ backgroundColor: profile.button_border_color, color: profile.bg_color }}
-          >
-            {profile.name.charAt(0).toUpperCase()}
-          </div>
-        )}
+        ) : null}
 
-        <h1 className="mt-4 text-center text-2xl font-bold">{profile.name}</h1>
+        <h1 className="text-center text-2xl font-bold">{profile.name}</h1>
         {profile.bio ? (
           <p className="mt-2 max-w-sm text-center text-sm opacity-90">{profile.bio}</p>
         ) : null}
