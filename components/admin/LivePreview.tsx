@@ -29,17 +29,10 @@ export function LivePreview({
         <img
           src={profile.logo_url}
           alt=""
-          className="h-20 w-20 rounded-full object-cover shadow-lg"
+          className="mb-3 h-20 w-20 rounded-full object-cover shadow-lg"
         />
-      ) : (
-        <div
-          className="flex h-20 w-20 items-center justify-center rounded-full text-2xl font-bold shadow-lg"
-          style={{ backgroundColor: profile.button_border_color, color: profile.bg_color }}
-        >
-          {(profile.name || "?").charAt(0).toUpperCase()}
-        </div>
-      )}
-      <p className="mt-3 text-center text-lg font-bold">{profile.name}</p>
+      ) : null}
+      <p className="text-center text-lg font-bold">{profile.name}</p>
       {profile.bio ? (
         <p className="mt-1.5 text-center text-xs opacity-90">{profile.bio}</p>
       ) : null}
